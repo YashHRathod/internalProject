@@ -1,5 +1,5 @@
 import styles from "./Header.module.css";
-
+// import { NavLink } from "react-router-dom";
 export default function Header() {
   return (
     <header className={styles.header}>
@@ -8,7 +8,9 @@ export default function Header() {
         <span className={styles.brand}>QuickTask Link</span>
       </div>
 
-      <button className={styles.loginBtn}>Login</button>
+       {/* <NavLink to="/login" className={styles.loginBtn}>
+          login
+        </NavLink> */}
     </header>
   );
 }

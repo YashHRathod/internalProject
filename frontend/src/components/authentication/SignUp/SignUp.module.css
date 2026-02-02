@@ -1,0 +1,116 @@
+.container {
+  height: 100vh;
+  display: flex;
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+
+.left {
+  flex: 1;
+  display: flex;
+    margin-top: 40px;
+  justify-content: center;
+}
+
+.authBox {
+  width: 420px;
+}
+
+.title {
+  font-size: 45px;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 65px;
+}
+
+.form {
+  width: 100%;
+}
+
+.input {
+  width: 100%;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  border: 1px solid #d0d5dd;
+  font-size: 15px;
+}
+
+.input::placeholder {
+  color: #8d8f92;
+}
+
+.input:focus {
+  border-color: #0f62e7;
+  outline:none;
+}
+
+
+.passwordBox {
+  position: relative;
+}
+
+.eye {
+  position: absolute;
+  right: 2px;
+  top: 15px;
+  background: none;
+  border: none;
+ 
+  font-size: 15px;
+}
+
+.primaryBtn {
+  margin-top: 10px;
+  background-color: #3b82f6;
+  color: white;
+  font-size: 15px;
+  font-weight: bold;
+  padding: 15px 30px;
+  border-radius: 20px;
+  text-decoration: none
+}
+
+.primaryBtn:hover {
+  opacity: 0.75;
+}
+
+
+.divider {
+  height: 1px;
+  background: #e5e7eb;
+  margin: 24px 0;
+}
+.verticaldivider{
+    height: 500px;
+    width: 2px;
+    background-color: #e5e7eb;
+}
+
+
+
+
+.footerText {
+  margin-top: 20px;
+  font-size: 20px;
+  color: #667085;
+  text-align: center;
+}
+
+.footerText span {
+  color: #2563eb;
+
+}
+
+
+
+.image {
+  width: 700px;
+  margin-bottom: 30px;
+}
+
+
+.loginBtn {
+ text-decoration: none;
+ color: #0f62e7;
+}
