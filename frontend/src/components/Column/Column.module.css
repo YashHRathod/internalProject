@@ -1,0 +1,119 @@
+.main {
+  width: 32%;
+}
+.column {
+  background: #f3f4f6;
+  padding: 10px;
+  border-radius: 12px;
+  height: 90%;
+  /* width: 31%; */
+  /* margin:10px; */
+}
+.heading {
+  display: flex;
+  justify-content: start;
+}
+
+h3 {
+  margin-top: 0px;
+}
+.card {
+  background: rgb(255, 255, 255);
+  padding: 12px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+
+  /* width: 100%; */
+}
+.hih{
+    margin-top: 10px;
+}
+.badge {
+    /* margin-top: 50px; */
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+
+/* li::marker {
+  color: rgb(62, 62, 157);
+  font-size: 35px;
+  margin-left: 0%;
+}
+.completed::marker {
+  color: green;
+  margin-right: 0%;
+  size: 10px;
+}
+.todo::marker {
+  color: rgb(100, 102, 104);
+} */
+
+.low {
+  background: #f0f6fa;
+  border-color: #ffffff;
+  border-width: 2px;
+}
+
+.medium {
+  background: #fef3c7;
+  border-color: #f2e19c;
+  border-width: 2px;
+}
+
+.high {
+  background: #ffadad;
+  border-color: #fe6f6f;
+  border-width: 2px;
+}
+h3 {
+  color: #686868;
+  font-size: small;
+  margin-top: 0%;
+}
+/* ul {
+  align-items: start;
+}
+ul li h3 {
+  margin-top: 1px;
+} */
+
+/* h3::before{
+    content: "";
+    
+  color: #000;    
+  font-weight: bold;
+  display: inline-block;
+  
+  width: 0.5em;   
+  margin-left: 0.5em;
+  size: 2rem;
+} */
+/* .bhagwan{
+    background-color: blue;
+    border-radius: 50%;
+    margin-left: 0%;
+ } */   
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 10px;
+  margin-top: 4px;
+}
+
+.todo {
+  background: rgb(100, 102, 104);
+}
+
+.inprogress {
+  background: rgb(62, 62, 157);
+}
+
+.completed {
+  background: green;
+}
+.tasktitle{
+    margin-left: 5px;
+}

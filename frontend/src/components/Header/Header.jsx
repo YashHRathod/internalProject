@@ -1,16 +1,33 @@
 import styles from "./Header.module.css";
-// import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { IoMdLink } from "react-icons/io";
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
+
 export default function Header() {
+  const {user,setUser}=useContext(AuthContext);
+  const navigate=useNavigate()
+  const fun=()=>{
+    if(!user)navigate("/login")
+    if(user){
+      setUser("");
+      
+    }
+  }
   return (
+    <div>
     <header className={styles.header}>
       <div className={styles.left}>
-        <span className={styles.logo}>🔗</span>
-        <span className={styles.brand}>QuickTask Link</span>
+        <span className={styles.logo}><IoMdLink  color={"blue"} size={25}/>
+</span>
+        <span className={styles.brand}>Orcas</span>
       </div>
 
-       {/* <NavLink to="/login" className={styles.loginBtn}>
-          login
-        </NavLink> */}
+       <button onClick={fun} className={styles.loginBtn}>
+          {user?"Logout":"Login"}
+        </button>
     </header>
+        <div className={styles.line}/>
+    </div>
   );
 }

@@ -1,3 +1,8 @@
+*{
+    font-family: Inter, -apple-system, BlinkMacSystemFont,
+             "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+}
 .title {
   font-size: 48px;
   font-weight: 800;
@@ -18,16 +23,21 @@
   font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 .feature{
-    font-style:normal;
-    font-weight: lighter;
+    /* font-style:normal; */
+    font-weight:600;
+    font-size: 15px;
     margin-bottom: 10px;
     display:flex;
     align-items: start;
+
     gap:10px;
+    size: 10px;
+    color: #000000;
 }
 .subtitle{
     color:#5e5e5e;
     margin-bottom: 50px;
+    width: 480px;
 }
 .cta {
     margin-top: 50px;
@@ -37,14 +47,18 @@
   font-weight: bold;
   padding: 15px 30px;
   border-radius: 20px;
-  text-decoration: none
+  text-decoration: none;
+  border-width: 0px;
+  transition:all 0.2s ease;
+  box-shadow:0 3px 3px #acacac ;
   
 
 
 }
 .cta:hover{
     box-shadow: 1px 1px #969696;
-    transform: scalex(1.03);
+    background-color: #3a74d2;
+    /* transform: scalex(1.03); */
 }
 .linkText {
   margin-top: 18px;
@@ -53,11 +67,52 @@
 }
 
 .link {
-  color: #2563eb;
+  color: #3b82f6;
   text-decoration: none;
+  background-color: white;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s ease;
+
+  
 }
 
 .link:hover {
-  text-decoration: underline;
+  /* text-decoration: underline; */
+  font-weight: 700;
+}
+.checkbox{
+  background-color: #bdcdf0;
+  border-radius: 50%;
+}
+.or{
+  font-size:10px;
+  font-weight: 700;
+  color: #a2a0a0;
+}
+.orline{
+  width: 80px;
+  height: 1px;
+  background-color: #d0cfcf;
+  margin-top: 6px;
+  margin-left: 13px;
+  margin-right: 13px;
+}
+.orgroup{
+  margin-top: 20px;
+  display: flex;
 }
 
+.check {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #eaf2ff;
+  color: #3b82f6;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+}
