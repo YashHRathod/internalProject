@@ -10,7 +10,7 @@ const taskRoute=require("./router/taskRoute")
 // console.log(PORT);
 app.use(cors({ origin: "*" }));
 app.use(express.json());
-// console.log(process.env.MONGO_URI)
+console.log(process.env.MONGO_URI)
 
 mongoose
   .connect(process.env.MONGO_URI)
@@ -22,6 +22,7 @@ mongoose
 app.use("/",userRoute)
 app.use("/workspace",workSpaceRoute)
 app.use("/task",taskRoute)
+
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

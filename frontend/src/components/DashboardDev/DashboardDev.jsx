@@ -1,87 +1,115 @@
-import styles from "./Dashboarddev.module.css";
-import React from "react";
+import styles from "./DashboardDev.module.css";
+import React, { useEffect, useState, useContext } from "react";
 import { BsCalendar3Event } from "react-icons/bs";
+import { GoPlus } from "react-icons/go";
 import Column from "../Column/Coloum";
-import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
-// const tempTasks = [
-//   {
-//     workspace: "65cfa12e9b23a123456789ab",
-//     title: "Setup JWT Authentication",
-//     description: "Implement login, register, and protect routes using JWT",
-//     priority: "high",
-//     status: "pending",
-//   },
-//   {
-//     workspace: "65cfa12e9b23a123456789ab",
-//     title: "Design Workspace Schema",
-//     description: "Finalize workspace and task relationship in MongoDB",
-//     priority: "low",
-//     status: "inprogress",
-//   },
-//   {
-//     workspace: "65cfa12e9b23a123456789ab",
-//     title: "Fix Task Priority Update Bug",
-//     description: "Resolve logical condition issue in priority validation",
-//     priority: "high",
-//     status: "completed",
-//   },
-//   {
-//     workspace: "65cfa12e9b23a123456789ab",
-//     title: "Cleanup Controllers",
-//     description:
-//       "Refactor task and workspace controllers for better readability",
-//     // priority omitted → default: "low"
-//     // status omitted → default: "pending"
-//   },
-// ];
+import AddTaskModal from "../AddtaskModel/AddTaskModel";
 
-export default function Dashboard() {
-  const {user}=useContext(AuthContext)
-  console.log(user);
+export default function DashboardDev() {
+  const { user } = useContext(AuthContext);
+  const [showModal, setShowModal] = useState(false);
+  const [tasks, setTasks] = useState([]);
+  const [loading, setLoading] = useState(true);
+
   const today = new Date();
   const year = today.getFullYear();
-  const month = today.toLocaleString("default", { month: "short" }); // getMonth() is zero-based (0-11)
+  const month = today.toLocaleString("default", { month: "short" });
   const day = today.getDate();
+
+  useEffect(() => {
+    if (!user?._id) return;
+
+    const fetchTasks = async () => {
+      try {
+        const token = localStorage.getItem("token");
+
+        const res = await fetch(`http://localhost:3000/task/getalldevtask`, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        const data = await res.json();
+console.log("DEV TASK RESPONSE:", data);
+
+      setTasks(Array.isArray(data) ? data : []);
+
+      } catch (err) {
+        console.error("Failed to fetch developer tasks", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTasks();
+  }, [user]);
+
+  const normalizeStatus = (status) => {
+    if (status === "pending") return "todo";
+    return status;
+  };
+
+  const groupedTasks = {
+    todo: [],
+    inprogress: [],
+    completed: [],
+  };
+
+ if (Array.isArray(tasks)) {
+  tasks.forEach((task) => {
+    const status = normalizeStatus(task.status);
+    groupedTasks[status]?.push(task);
+  });
+}
+  if (loading) return <p>Loading tasks...</p>;
 
   return (
     <div>
-         <div className={styles.horizontal}></div>
+      <div className={styles.horizontal}></div>
+
       <div className={styles.title}>
         <div>
-          <h2>Project Alpha Team</h2>
+          <h2>{user?.name || "Developer Dashboard"}</h2>
           <span>
             <span className={styles.icon}>
-              <BsCalendar3Event />{" "}
-            </span>{" "}
-            {month} {day},{year}
+              <BsCalendar3Event size={12} />
+            </span>
+            <span>
+              {month} {day}, {year}
+            </span>
           </span>
         </div>
-        <button className={styles.cta}>+ Add new Task</button>
+
+        <button onClick={() => setShowModal(true)} className={styles.cta}>
+          <GoPlus size={20} className={styles.plus} />
+          Add new Task
+        </button>
       </div>
-     
-      <div className={styles.board}>
-        <Column
-          title="todo"
-          tasks={[
-            { title: "Update API docs", priority: "Medium" },
-            { title: "Code review", priority: "Low" },
-          ]}
-        //   count={2}
+      {showModal && (
+        <AddTaskModal
+          onClose={() => setShowModal(false)}
+          onCreate={(task) => {
+            // call backend here
+            console.log(task);
+          }}
         />
+      )}
+
+      <div className={styles.board}>
+        <Column title="todo" tasks={groupedTasks.todo} setTasks={setTasks} />
 
         <Column
           title="inprogress"
-          tasks={[{ title: "Fix login bug", priority: "High" }]}
+          tasks={groupedTasks.inprogress}
+          setTasks={setTasks}
         />
 
         <Column
           title="completed"
-          tasks={[
-            { title: "Setup dev environment" },
-            { title: "Write unit tests" },
-            { title: "Fix CSS issues" },
-          ]}
+          tasks={groupedTasks.completed}
+          setTasks={setTasks}
         />
       </div>
     </div>

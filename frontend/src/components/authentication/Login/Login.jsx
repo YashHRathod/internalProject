@@ -5,7 +5,7 @@ import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { Navigate, NavLink, useNavigate } from "react-router-dom";
 import { Bounce, toast } from "react-toastify";
 import { AuthContext } from "../../../context/AuthContext";
-
+// const url = "/authpage.png";
 function Login() {
   const navigate = useNavigate();
   const { setUser } = useContext(AuthContext);
@@ -36,7 +36,7 @@ function Login() {
       // console.log(data);
       if (!res.ok) throw new Error(data.message || "Login failed");
 
-      // persist token for AuthContext
+      
       if (data.token) localStorage.setItem("token", data.token);
       localStorage.setItem("userInfo", JSON.stringify(data));
 
@@ -106,7 +106,7 @@ function Login() {
       <div className={styles.verticaldivider} />
       <div className={styles.right}>
         <img
-          src="\src\assets\authpage.png"
+          src= "/authpage.png"
           alt="Illustration"
           className={styles.image}
         />

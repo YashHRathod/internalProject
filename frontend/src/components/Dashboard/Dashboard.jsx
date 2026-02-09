@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
+import { GoPlus } from "react-icons/go";
 // const tempTasks = [
 //   {
 //     workspace: "65cfa12e9b23a123456789ab",
@@ -39,7 +40,7 @@ import { useSelector } from "react-redux";
 // ];
 
 export default function Dashboard() {
-    const { workspaceId } = useParams();
+  const { workspaceId } = useParams();
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
   // const [workspace,setWorkspace]=useState("");
@@ -49,7 +50,7 @@ export default function Dashboard() {
   const day = today.getDate();
   const { workspaceName } = useSelector((state) => state.workspace);
 
-   useEffect(() => {
+  useEffect(() => {
     const fetchTasks = async () => {
       try {
         const token = localStorage.getItem("token");
@@ -60,7 +61,7 @@ export default function Dashboard() {
             headers: {
               Authorization: `Bearer ${token}`,
             },
-          }
+          },
         );
 
         const data = await res.json();
@@ -92,29 +93,44 @@ export default function Dashboard() {
     const status = normalizeStatus(task.status);
     groupedTasks[status]?.push(task);
   });
- if (loading) return <p>Loading tasks...</p>;
+  if (loading) return <p>Loading tasks...</p>;
   return (
-  <div>
-      <div className={styles.horizontal}></div>
+    <div>
+      {/* <div className={styles.horizontal}></div> */}
 
       <div className={styles.title}>
         <div>
-         <h2>{workspaceName || "Workspace"}</h2>
+          <div className={styles.heading}>{workspaceName || "Workspace"}</div>
 
           <span>
             <span className={styles.icon}>
-              <BsCalendar3Event />
+              <BsCalendar3Event size={10} />
             </span>
-            {month} {day}, {year}
+            <span className={styles.dts}>
+              {month} {day}, {year}
+            </span>
           </span>
         </div>
-        <button className={styles.cta}>+ Add new Developer</button>
+        <button className={styles.cta}>
+          <GoPlus size={20} className={styles.plus} />
+          Add New Developer
+        </button>
       </div>
 
       <div className={styles.board}>
-        <Column title="todo" tasks={groupedTasks.todo} />
-        <Column title="inprogress" tasks={groupedTasks.inprogress} />
-        <Column title="completed" tasks={groupedTasks.completed} />
+        <Column title="todo" tasks={groupedTasks.todo} setTasks={setTasks} />
+
+        <Column
+          title="inprogress"
+          tasks={groupedTasks.inprogress}
+          setTasks={setTasks}
+        />
+  
+        <Column
+          title="completed"
+          tasks={groupedTasks.completed}
+          setTasks={setTasks}
+        />
       </div>
     </div>
   );

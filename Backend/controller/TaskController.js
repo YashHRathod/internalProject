@@ -2,18 +2,20 @@ const Task = require("../Models/TaskModel");
 
 const CreateTask = async (req, res) => {
   try {
-    const { workspace } = req.params;
+    const { workspaceId } = req.params;
+    const userId=req.user._id;
     const { title, description } = req.body;
 
-    if (!workspace || !title || !description) {
+    if (!workspaceId || !title || !description) {
       return res.status(400).json({
         message: "All fields are required",
       });
     }
 
-    console.log(workspace);
+    console.log(workspaceId);
     const temp = {
-      workspace,
+      workspace:workspaceId,
+      createdBy:userId,
       title,
       description,
     };
@@ -35,6 +37,49 @@ const CreateTask = async (req, res) => {
     });
   }
 };
+const getall = async (req,res)=>{
+  try{
+    const {workspaceId}=req.params;
+ const tasks = await Task.find({ workspace: workspaceId })
+  .populate("workspace", "workspace");
+
+
+
+    return res.status(200).json(tasks);
+  }
+  catch(error){
+    return res.json(500).status({
+        Error:error,
+        message:"unable to get the tasks"
+    })
+  }
+}
+const getallfordeveloper= async (req,res)=>{
+  try{
+
+    const userId =req.user._id;
+    const role=req.user.role;
+    console.log(role);
+    const tasks= await Task.find({createdBy:userId})
+    if(!tasks){
+     return  res.status(400).json({
+      message:"Unable to fetch the tasks for developer"
+    })
+    }
+    return res.status(200).json({
+        data:tasks,
+        message:"successfully fetched.."
+    })
+
+  }
+  catch(err){
+    console.log(err);
+   return  res.status(500).json({
+      error:err,
+      message:"internal server error"
+    })
+  }
+}
 
 const deleteTask = async (req, res) => {
   try {
@@ -100,7 +145,7 @@ const Markinprogress = async (req, res) => {
   try {
     const task = await Task.findByIdAndUpdate(
       taskId,
-      { status: "in-progress" },
+      { status: "inprogress" },
       { new: true },
     );
     if (!task) {
@@ -117,6 +162,35 @@ const Markinprogress = async (req, res) => {
     // console.log(error);
     return res.status(500).json({
       message: "Error in moving the task to in-progress",
+      Error: error,
+    });
+  }
+};
+
+//mark as progress in status
+const Marktodo = async (req, res) => {
+  const { taskId } = req.params;
+  // const task= await Task.findById(id)
+  try {
+    const task = await Task.findByIdAndUpdate(
+      taskId,
+      { status: "todo" },
+      { new: true },
+    );
+    if (!task) {
+      return res.status(404).json({
+        message: "unable to find the task of that id",
+        error,
+      });
+    }
+    return res.status(200).json({
+      data:task,
+      message: "task in todo now",
+    });
+  } catch (error) {
+    // console.log(error);
+    return res.status(500).json({
+      message: "Error in moving the task to todo",
       Error: error,
     });
   }
@@ -155,5 +229,8 @@ module.exports = {
   deleteTask,
   Markcomplete,
   Markinprogress,
+  Marktodo,
   changePriority,
+  getall,
+  getallfordeveloper
 };

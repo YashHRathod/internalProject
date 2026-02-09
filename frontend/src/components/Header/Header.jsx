@@ -11,6 +11,8 @@ export default function Header() {
     if(!user)navigate("/login")
     if(user){
       setUser("");
+      localStorage.removeItem('token');
+      localStorage.removeItem('userInfo');
       
     }
   }
