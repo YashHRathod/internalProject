@@ -63,11 +63,12 @@ function GotoDashboard({ isOpen, onClose }) {
       >
         {/* Header */}
         <div className={styles.header}>
-          <h2>Go to Dashboard</h2>
+          <div>Go to Dashboard</div>
           <button className={styles.close} onClick={onClose}>×</button>
         </div>
+        <div className={styles.underline}/>
 
-        {/* Body */}
+   
         <div className={styles.body}>
           <label>Select Workspace</label>
 
@@ -77,8 +78,9 @@ function GotoDashboard({ isOpen, onClose }) {
             <select
               value={selectedWs}
               onChange={(e) => setSelectedWs(e.target.value)}
+              id={styles.options}
             >
-              <option value="">-- Select workspace --</option>
+              <option value="">workspace?</option>
               {workspaces.map((ws) => (
                 <option key={ws._id} value={ws._id}>
                   {ws.workspace}

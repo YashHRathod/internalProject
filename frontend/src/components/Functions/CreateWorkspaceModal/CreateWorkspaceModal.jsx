@@ -1,10 +1,9 @@
 import { useState } from "react";
 import styles from "./CreateWorkspaceModal.module.css";
-import { useDispatch } from "react-redux";
-import { setWorkspace } from "../../store/workspaceSlice";
+
 
 export default function CreateWorkspaceModal({ isOpen, onClose }) {
-  const dispatch = useDispatch();
+
 
   const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
@@ -34,12 +33,7 @@ export default function CreateWorkspaceModal({ isOpen, onClose }) {
       if (!res.ok) {
         throw new Error(data.message || "Failed to create workspace");
       }
-      dispatch(
-        setWorkspace({
-          id: data.data._id,
-          name: data.data.workspace,
-        }),
-      );
+      
 
       setName("");
       onClose();
@@ -63,7 +57,7 @@ export default function CreateWorkspaceModal({ isOpen, onClose }) {
 
         <div className={styles.body}>
           <label>
-            Workspace Name <span>*</span>
+           <div className={styles.labl}> Workspace Name <span>*</span></div>
           </label>
           <input value={name} onChange={(e) => setName(e.target.value)} />
         </div>

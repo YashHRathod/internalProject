@@ -47,7 +47,7 @@
 
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useContext } from "react";
-import { AuthContext } from "../context/AuthContext";
+import { AuthContext } from "../../context/AuthContext";
 
 export default function Join() {
   const { token } = useParams();
@@ -65,13 +65,15 @@ export default function Join() {
         );
 
         const data = await res.json();
+        // console.log(data);
         if (!res.ok) throw new Error(data.message);
 
         localStorage.setItem("token", data.token);
+        localStorage.setItem("workspace",data.workspaceId);
 
         await refreshAuth(); // 🔑 THIS IS THE FIX
         navigate("/");
-      } catch (err) {
+      } catch {
         alert("Join failed");
       }
     };

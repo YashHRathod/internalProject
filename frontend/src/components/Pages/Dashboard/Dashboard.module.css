@@ -70,7 +70,8 @@
   padding: 20px;
   width: 100%;
   background-color: #f5f7f8;
-  height: 429px;
+  min-height: 429px;
+  max-height:fit-content ;
 }
 
 .dts {
@@ -79,8 +80,16 @@
   color: #969696;
 }
 .heading{
+  display: flex;
     font-size: 30px;
     font-weight: 700;
+}
+.dots{
+  background: none;
+  border-width: 0px;
+  margin-left: 5px;
+  margin-top: 10px;
+  font-size: 10px;
 }
 .icon{
     size: 14px;

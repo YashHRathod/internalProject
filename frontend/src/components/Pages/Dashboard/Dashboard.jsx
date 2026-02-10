@@ -1,12 +1,14 @@
 import styles from "./Dashboard.module.css";
 import React from "react";
 import { BsCalendar3Event } from "react-icons/bs";
-import Column from "../Column/Coloum";
+import Column from "../../Functions/Column/Coloum";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { GoPlus } from "react-icons/go";
+import { SlOptionsVertical } from "react-icons/sl";
+import GotoDashboard from "../../Functions/GotoDashboard/GotoDashboard";
 // const tempTasks = [
 //   {
 //     workspace: "65cfa12e9b23a123456789ab",
@@ -43,6 +45,7 @@ export default function Dashboard() {
   const { workspaceId } = useParams();
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [openGoto, setOpenGoto] = useState(false);
   // const [workspace,setWorkspace]=useState("");
   const today = new Date();
   const year = today.getFullYear();
@@ -100,8 +103,13 @@ export default function Dashboard() {
 
       <div className={styles.title}>
         <div>
-          <div className={styles.heading}>{workspaceName || "Workspace"}</div>
-
+          <div className={styles.heading}>
+            <div>{workspaceName || "Workspace"}</div>
+            <button onClick={() => setOpenGoto(true)} className={styles.dots}>
+              <SlOptionsVertical size={20} />
+            </button>
+          </div>
+          <GotoDashboard isOpen={openGoto} onClose={() => setOpenGoto(false)} />
           <span>
             <span className={styles.icon}>
               <BsCalendar3Event size={10} />
@@ -125,7 +133,7 @@ export default function Dashboard() {
           tasks={groupedTasks.inprogress}
           setTasks={setTasks}
         />
-  
+
         <Column
           title="completed"
           tasks={groupedTasks.completed}

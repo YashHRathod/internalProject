@@ -124,7 +124,7 @@ function SignUp() {
       <div className={styles.verticaldivider} />
       <div className={styles.right}>
         <img
-          src="\src\assets\authpage.png"
+          src="/authpage.png"
           alt="Illustration"
           className={styles.image}
         />

@@ -8,6 +8,7 @@ export default function AddTaskModal({ onClose, onCreate }) {
 
   const handleSubmit = () => {
     if (!title.trim()) return;
+    
 
     onCreate({
       title,
@@ -38,6 +39,7 @@ export default function AddTaskModal({ onClose, onCreate }) {
            <div className={styles.title}> Task Title <span>*</span></div>
             <input
               type="text"
+              className={styles.tit}
               placeholder="e.g.,Fix API authentication bug"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
@@ -46,7 +48,7 @@ export default function AddTaskModal({ onClose, onCreate }) {
 
           <label>
            <div className={styles.title}>  Description <span className={styles.optional}>(optional)</span></div>
-            <input
+            <textarea
             type="text"
             placeholder="Add details about the task.."
               value={description}
@@ -67,7 +69,7 @@ export default function AddTaskModal({ onClose, onCreate }) {
                   onClick={() => setPriority(p)}
                 >
                   <span className={styles.dot} />
-                    {p}
+                    {p[0].toLocaleUpperCase() +p.slice(1)}
                 </button>
               ))}
             </div>

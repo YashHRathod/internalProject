@@ -2,10 +2,10 @@ import styles from "./Home.module.css";
 import { ArrowRightIcon, CheckCircleFillIcon } from "@primer/octicons-react";
 import { useState } from "react";
 import { FaCheck } from "react-icons/fa";
-import CreateWorkspaceModal from "../CreateWorkspaceModal/CreateWorkspaceModal";
-import GotoDashboard from "../GotoDashboard/GotoDashboard";
-import { FcCheckmark } from "react-icons/fc";
-import CheckIcon from "./checkIcon"
+import CreateWorkspaceModal from "../../Functions/CreateWorkspaceModal/CreateWorkspaceModal";
+import GotoDashboard from "../../Functions/GotoDashboard/GotoDashboard";
+// import { FcCheckmark } from "react-icons/fc";
+// import CheckIcon from "./checkIcon"
 export default function Home() {
   const [openCreate, setOpenCreate] = useState(false);
   const [openGoto, setOpenGoto] = useState(false);

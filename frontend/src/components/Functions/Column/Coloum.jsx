@@ -52,7 +52,7 @@ const moveTask = async (taskId, newStatus) => {
         <div className={`${styles.dot} ${styles[title.toLowerCase()]}`}></div>
 
         <h3>
-          {title} <span>({tasks.length})</span>
+          {title.toUpperCase()} <span>({tasks.length})</span>
         </h3>
       </div>
 

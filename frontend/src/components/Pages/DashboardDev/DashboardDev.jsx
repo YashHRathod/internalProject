@@ -2,9 +2,9 @@ import styles from "./DashboardDev.module.css";
 import React, { useEffect, useState, useContext } from "react";
 import { BsCalendar3Event } from "react-icons/bs";
 import { GoPlus } from "react-icons/go";
-import Column from "../Column/Coloum";
-import { AuthContext } from "../../context/AuthContext";
-import AddTaskModal from "../AddtaskModel/AddTaskModel";
+import Column from "../../Functions/Column/Coloum";
+import { AuthContext } from "../../../context/AuthContext";
+import AddTaskModal from "../../Functions/AddtaskModel/AddTaskModel";
 
 export default function DashboardDev() {
   const { user } = useContext(AuthContext);
@@ -16,6 +16,37 @@ export default function DashboardDev() {
   const year = today.getFullYear();
   const month = today.toLocaleString("default", { month: "short" });
   const day = today.getDate();
+
+  const createTask = async (taskData) => {
+    try {
+      const token = localStorage.getItem("token");
+      const workspaceId = localStorage.getItem("workspace");
+
+      if (!workspaceId) {
+        console.error("Workspace ID missing in localStorage");
+        return;
+      }
+
+      const res = await fetch(
+        `http://localhost:3000/task/${workspaceId}/create`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(taskData),
+        },
+      );
+
+      const newres = await res.json();
+      const newTask = newres.data;
+      console.log("Created task", newTask);
+      setTasks((prev) => [...prev, newTask]);
+    } catch (err) {
+      console.error("Failed to create task", err);
+    }
+  };
 
   useEffect(() => {
     if (!user?._id) return;
@@ -32,10 +63,9 @@ export default function DashboardDev() {
         });
 
         const data = await res.json();
-console.log("DEV TASK RESPONSE:", data);
+        console.log("DEV TASK RESPONSE:", data.data);
 
-      setTasks(Array.isArray(data) ? data : []);
-
+        setTasks(Array.isArray(data.data) ? data.data : []);
       } catch (err) {
         console.error("Failed to fetch developer tasks", err);
       } finally {
@@ -57,12 +87,13 @@ console.log("DEV TASK RESPONSE:", data);
     completed: [],
   };
 
- if (Array.isArray(tasks)) {
-  tasks.forEach((task) => {
-    const status = normalizeStatus(task.status);
-    groupedTasks[status]?.push(task);
-  });
-}
+  if (Array.isArray(tasks)) {
+    tasks.forEach((task) => {
+      console.log(task);
+      const status = normalizeStatus(task.status);
+      groupedTasks[status]?.push(task);
+    });
+  }
   if (loading) return <p>Loading tasks...</p>;
 
   return (
@@ -91,7 +122,7 @@ console.log("DEV TASK RESPONSE:", data);
         <AddTaskModal
           onClose={() => setShowModal(false)}
           onCreate={(task) => {
-            // call backend here
+            createTask(task);
             console.log(task);
           }}
         />

@@ -1,12 +1,11 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-import Layout from "./components/Layout";
-import Home from "./components/Home/Home";
+import Layout from "./components/Layout/Layout";
+import Home from "./components/Pages/Home/Home";
 import Login from "./components/authentication/Login/Login";
 import SignUp from "./components/authentication/SignUp/SignUp";
-import Dashboard from "./components/Dashboard/Dashboard";
-import DashboardDev from "./components/DashboardDev/DashboardDev";
-import Join from "./components/Join";
-
+import Dashboard from "./components/Pages/Dashboard/Dashboard"
+import DashboardDev from "./components/Pages/DashboardDev/DashboardDev";
+import Join from "./components/Functions/Join"
 import RequireAuth from "./components/authentication/RequireAuth";
 import RequireLead from "./components/authentication/RequireLead";
 import { useContext } from "react";

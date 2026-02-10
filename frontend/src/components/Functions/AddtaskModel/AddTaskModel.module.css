@@ -84,7 +84,20 @@ input::placeholder{
 }
 .description{
     height: 80px;
+    border-radius: 10px;
+
    
+}
+
+.description:focus{
+  border:2px solid #a6a6a6;
+  /* border-color: #838487; */
+  outline: none;
+}
+.tit:focus{
+  border:2px solid #a6a6a6;
+  /* border-color: #838487; */
+  outline: none;
 }
 /* .placeholder{
     display: flex;
