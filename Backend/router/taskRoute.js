@@ -1,7 +1,8 @@
 const express=require("express")
-const { CreateTask, deleteTask, Markcomplete, Markinprogress, changePriority, getall, getallfordeveloper, Marktodo } = require("../controller/TaskController")
+const { CreateTask, deleteTask, Markcomplete, Markinprogress, changePriority, getall, getallfordeveloper, Marktodo, getTask } = require("../controller/TaskController")
 const protect = require("../middleware/authMiddleware")
 const router=express.Router()
+
 router.post("/:workspaceId/create",protect,CreateTask)
 router.delete("/:taskId",deleteTask)
 router.put("/:taskId/completed",Markcomplete)
@@ -10,4 +11,6 @@ router.put("/:taskId/todo",Marktodo)
 router.put("/:taskId/changePriority",changePriority)
 router.get("/:workspaceId/all",getall)
 router.get("/getalldevtask",protect,getallfordeveloper)
+router.get("/:taskId/getone",getTask)
 module.exports = router;
+

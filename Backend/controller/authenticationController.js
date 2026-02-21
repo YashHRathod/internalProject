@@ -8,6 +8,7 @@ const SignUpController = async (req, res) => {
     throw new Error("Please enter all the fields");
   }
   
+  
   const u = await userModel.findOne({ email });
   // const name="temp";
   if (u) {

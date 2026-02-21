@@ -3,8 +3,10 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { IoMdLink } from "react-icons/io";
 import { useContext } from "react";
 import { AuthContext } from "../../../context/AuthContext";
-
+import { clearWorkspace } from "../../../store/workspaceSlice";
+import { useDispatch } from "react-redux";
 export default function Header() {
+  const dispatch =useDispatch()
   const { user, setUser } = useContext(AuthContext);
   const navigate = useNavigate();
   const fun = () => {
@@ -13,6 +15,7 @@ export default function Header() {
       setUser("");
       localStorage.removeItem("token");
       localStorage.removeItem("userInfo");
+      dispatch(clearWorkspace());
     }
   };
   return (

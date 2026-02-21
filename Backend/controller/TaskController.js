@@ -224,6 +224,30 @@ try {
 
 };
 
+const getTask=async (req,res) => {
+  const {taskId}=req.params;
+  try{
+    const task= await Task.findById(taskId);
+    // console.log(task)
+    if(!task){
+      return res.status(404).json({
+        message:"unable to get the task",
+      })
+    }
+    return res.status(200).json({
+      data:task,
+      message:"sucsessfully fetched the task",
+    })
+
+  }
+  catch(error){
+    return res.status(400).json({
+      message:error.message || "unable to get the task try after some time"
+    })
+  }
+
+};
+
 module.exports = {
   CreateTask,
   deleteTask,
@@ -232,5 +256,6 @@ module.exports = {
   Marktodo,
   changePriority,
   getall,
-  getallfordeveloper
+  getallfordeveloper,
+  getTask,
 };

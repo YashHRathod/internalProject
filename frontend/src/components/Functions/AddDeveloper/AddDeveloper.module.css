@@ -55,6 +55,7 @@
 .body span {
   color: red;
 }
+
 /* 
 .body input,
 .body textarea {
@@ -87,12 +88,14 @@
 
 .primary {
   background: #2563eb;
+  height: fit-content;
   color: #fff;
   border: none;
   padding: 8px 16px;
   border-radius: 8px;
   font-size: 15px;
   cursor: pointer;
+    
 }
 
 .primary:hover {
@@ -151,4 +154,12 @@ option:hover {
 option:checked {
   background-color: #e5e7eb;
   font-weight: 500;
+}
+.gen{
+    display: flex;
+    width: 100%;;
+    
+}
+.gen input{
+    width: 200%;
 }

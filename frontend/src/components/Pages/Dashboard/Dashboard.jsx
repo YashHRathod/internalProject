@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import { GoPlus } from "react-icons/go";
 import { SlOptionsVertical } from "react-icons/sl";
 import GotoDashboard from "../../Functions/GotoDashboard/GotoDashboard";
+import AddDeveloper from "../../Functions/AddDeveloper/AddDeveloper"
 // const tempTasks = [
 //   {
 //     workspace: "65cfa12e9b23a123456789ab",
@@ -46,16 +47,18 @@ export default function Dashboard() {
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [openGoto, setOpenGoto] = useState(false);
+  const [openAdd, setOpenAdd] = useState(false);
   // const [workspace,setWorkspace]=useState("");
   const today = new Date();
   const year = today.getFullYear();
   const month = today.toLocaleString("default", { month: "short" }); // getMonth() is zero-based (0-11)
   const day = today.getDate();
-  const { workspaceName } = useSelector((state) => state.workspace);
+  const { currName } = useSelector((state) => state.workspace);
 
   useEffect(() => {
     const fetchTasks = async () => {
       try {
+        console.log(currName)
         const token = localStorage.getItem("token");
 
         const res = await fetch(
@@ -104,7 +107,7 @@ export default function Dashboard() {
       <div className={styles.title}>
         <div>
           <div className={styles.heading}>
-            <div>{workspaceName || "Workspace"}</div>
+            <div>{currName || "Workspace"}</div>
             <button onClick={() => setOpenGoto(true)} className={styles.dots}>
               <SlOptionsVertical size={20} />
             </button>
@@ -119,10 +122,12 @@ export default function Dashboard() {
             </span>
           </span>
         </div>
-        <button className={styles.cta}>
+        <button  onClick={() => setOpenAdd(true)}className={styles.cta}>
           <GoPlus size={20} className={styles.plus} />
           Add New Developer
         </button>
+         <AddDeveloper isOpen={openAdd} onClose={() => setOpenAdd(false)} />
+
       </div>
 
       <div className={styles.board}>

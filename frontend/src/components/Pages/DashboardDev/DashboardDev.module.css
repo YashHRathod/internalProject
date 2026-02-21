@@ -1,4 +1,4 @@
-/* ===== GLOBAL FONT (scope-safe) ===== */
+
 :root {
   --font-sans: Inter, -apple-system, BlinkMacSystemFont,
                "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -8,7 +8,7 @@
   font-family: var(--font-sans);
 }
 
-/* ===== HEADER ===== */
+
 
 .title {
   display: flex;
@@ -16,7 +16,7 @@
   align-items: center;
 }
 
-/* ===== CTA BUTTON ===== */
+
 
 .cta {
   display: inline-flex;
@@ -49,14 +49,14 @@
   display: flex;
 }
 
-/* ===== DATE ===== */
+
 
 .icon {
   margin-right: 6px;
   margin-top: 2px;
 }
 
-/* ===== LAYOUT ===== */
+
 
 .main {
   background-color: #f3f2f2;
@@ -73,14 +73,15 @@
   margin: 6px 0;
 }
 
-/* ===== BOARD ===== */
+
 
 .board {
   display: flex;
   gap: 20px;
   padding: 20px;
   width: 100%;
-  height: 429px;
+  min-height: 429px;
+  max-height: fit-content;
 
   background-color: #faf7f7;
   border-radius: 8px;

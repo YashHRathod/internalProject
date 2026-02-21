@@ -2,8 +2,11 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import styles from "./GotoDashboard.module.css";
+import { useDispatch } from "react-redux";
+import { setAllWorkspaces, setCurrentWorkspace } from "../../../store/workspaceSlice";
 
 function GotoDashboard({ isOpen, onClose }) {
+   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [workspaces, setWorkspaces] = useState([]);
   const [selectedWs, setSelectedWs] = useState("");
@@ -31,6 +34,7 @@ function GotoDashboard({ isOpen, onClose }) {
         }
 
         setWorkspaces(data);
+        dispatch(setAllWorkspaces(data));
       } catch (error) {
         console.log(error)
         toast.error("Unable to get dashboards");
@@ -40,13 +44,20 @@ function GotoDashboard({ isOpen, onClose }) {
     };
 
     fetchWorkspaces();
-  }, [isOpen]);
+  }, [isOpen,dispatch]);
 
   const handleGo = () => {
     if (!selectedWs) {
       toast.error("Please select a workspace");
       return;
     }
+    const temp = workspaces.find(ws => ws._id === selectedWs);
+
+    
+    dispatch(setCurrentWorkspace({ 
+      id: selectedWs, 
+      name: temp?.workspace || "" 
+    }));
 
     navigate(`/lead/dashboard/${selectedWs}`);
     console.log("request",{selectedWs})
@@ -61,7 +72,6 @@ function GotoDashboard({ isOpen, onClose }) {
         className={styles.dialog}
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Header */}
         <div className={styles.header}>
           <div>Go to Dashboard</div>
           <button className={styles.close} onClick={onClose}>×</button>
