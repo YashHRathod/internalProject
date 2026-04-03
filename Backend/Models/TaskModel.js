@@ -28,4 +28,6 @@ const TaskSchema = new mongoose.Schema({
   },
 });
 
+TaskSchema.set("timestamps", true);
+
 module.exports = mongoose.model("Task", TaskSchema);

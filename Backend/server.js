@@ -7,6 +7,7 @@ const PORT=process.env.PORT
 const userRoute=require("./router/authenicationRoute")
 const workSpaceRoute=require("./router/workSpaceRoute")
 const taskRoute=require("./router/taskRoute")
+const poaRoute=require("./router/poaRoute")
 // console.log(PORT);
 app.use(cors({ origin: "*" }));
 app.use(express.json());
@@ -22,6 +23,7 @@ mongoose
 app.use("/",userRoute)
 app.use("/workspace",workSpaceRoute)
 app.use("/task",taskRoute)
+app.use("/poa",poaRoute)
 
 
 app.listen(PORT, () => {

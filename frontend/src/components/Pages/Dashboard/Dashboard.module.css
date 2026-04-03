@@ -17,6 +17,12 @@
   /* margin-bottom: 20px; */
   margin-bottom: 20px;
 }
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
 .cta {
   display: flex;
   justify-content: center;

@@ -9,7 +9,8 @@ import { useSelector } from "react-redux";
 import { GoPlus } from "react-icons/go";
 import { SlOptionsVertical } from "react-icons/sl";
 import GotoDashboard from "../../Functions/GotoDashboard/GotoDashboard";
-import AddDeveloper from "../../Functions/AddDeveloper/AddDeveloper"
+import AddDeveloper from "../../Functions/AddDeveloper/AddDeveloper";
+import POASyncButton from "../../Functions/POASyncButton/POASyncButton";
 // const tempTasks = [
 //   {
 //     workspace: "65cfa12e9b23a123456789ab",
@@ -122,11 +123,18 @@ export default function Dashboard() {
             </span>
           </span>
         </div>
-        <button  onClick={() => setOpenAdd(true)}className={styles.cta}>
-          <GoPlus size={20} className={styles.plus} />
-          Add New Developer
-        </button>
-         <AddDeveloper isOpen={openAdd} onClose={() => setOpenAdd(false)} />
+        <div className={styles.actions}>
+          <POASyncButton workspaceId={workspaceId} />
+          <button onClick={() => setOpenAdd(true)} className={styles.cta}>
+            <GoPlus size={20} className={styles.plus} />
+            Add New Developer
+          </button>
+        </div>
+        <AddDeveloper
+          isOpen={openAdd}
+          onClose={() => setOpenAdd(false)}
+          workspaceId={workspaceId}
+        />
 
       </div>
 

@@ -5,12 +5,14 @@ import { GoPlus } from "react-icons/go";
 import Column from "../../Functions/Column/Coloum";
 import { AuthContext } from "../../../context/AuthContext";
 import AddTaskModal from "../../Functions/AddtaskModel/AddTaskModel";
+import POASyncButton from "../../Functions/POASyncButton/POASyncButton";
 
 export default function DashboardDev() {
   const { user } = useContext(AuthContext);
   const [showModal, setShowModal] = useState(false);
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
+  const workspaceId = localStorage.getItem("workspace");
 
   const today = new Date();
   const year = today.getFullYear();
@@ -113,10 +115,13 @@ export default function DashboardDev() {
           </span>
         </div>
 
-        <button onClick={() => setShowModal(true)} className={styles.cta}>
-          <GoPlus size={20} className={styles.plus} />
-          Add new Task
-        </button>
+        <div className={styles.actions}>
+          <POASyncButton workspaceId={workspaceId} />
+          <button onClick={() => setShowModal(true)} className={styles.cta}>
+            <GoPlus size={20} className={styles.plus} />
+            Add new Task
+          </button>
+        </div>
       </div>
       {showModal && (
         <AddTaskModal
